@@ -1,0 +1,81 @@
+id Primary key poi的编号
+name poi的中文名称
+name_en poi的英文名称
+name_local poi的当地名称
+address 地址
+phone 电话
+area 区域（一系列经纬度围城的多边形）
+region 行政区域
+region_en 行政区域代码
+region_code 行政区域类型（0 代表国家 1 代表下一级行政区域 2 代表下一级行政区域 3 代表区下一级行政区域 4 代表下一级行政单位） 用于上级之间的联系
+region_belongs 所属的上级行政单位
+language_local 当地语言
+currency 货币
+timezone 时区(多时区)
+utc 夏令时
+rank_ 权重值
+longitude 经度
+latitude 纬度
+elevation 海拔
+is_core 是否是核心Poi
+is_core 是否是审核过Poi
+contact_id 关联Poi_id(相似的POI)
+created_at 创建时间
+modified_at 修改时间
+（非核心Poi可以合并到核心Poi里面， 通过contact_id, 关联所有的poi）
+
+
+
+
+SELECT aoyouji_trip.id as id, auth_user.username as username, aoyouji_trip.name as name FROM auth_user, btmisc_useractivitydata, aoyouji_trip WHERE btmisc_useractivitydata.uri = 'spring_festivalv2' and auth_user.id = btmisc_useractivitydata.user_id and aoyouji_trip.is_active and aoyouji_trip.privacy = 0 and btmisc_useractivitydata.user_id = aoyouji_trip.user_id and CAST(aoyouji_trip.date_created AS TEXT) > '2015-04-01' and CAST(aoyouji_trip.date_created AS TEXT) < '2015-04-21' ORDER BY aoyouji_trip.date_created DESC
+
+
+
+
+
+
+https://passport.meituan.com/account/unitivelogin?service=movieadmin&continue=http%3A%2F%2Fwww.maoyan.com%2Ffargo%2Fapi%2Flogin&mtt=1.account%2Funitivelogin.0.0.i88m4a1i
+
+
+
+CREATE TABLE "public"."poi_new_poi" (
+	"id" int4 NOT NULL,
+	"name" varchar NOT NULL,
+	"name_en" varchar,
+	"name_local" varchar,
+	"address" varchar,
+	"tel" varchar,
+	"area" "public"."geography",
+	"region" varchar,
+	"location" "public"."geography",
+	"region_en" varchar,
+	"region_code" varchar,
+	"region_belongs" varchar,
+	"language_local" varchar,
+	"currency" varchar,
+	"timezone_id" int4,
+	"rank_" int4,
+	"elevation" varchar,
+	"is_core" bool,
+	"is_check" bool,
+	"contact_id" int4,
+	"created_at" date,
+	"modifid_at" date,
+	"is_active" bool,
+	"price" varchar,
+	"category_id" int4,
+	"official_website" varchar,
+	"tag" int4,
+	"user_id" int4,
+	"opening_time" varchar,
+	"arrival_type" varchar,
+	"trip_consume_time" varchar,
+	"suitable_time" varchar,
+	"long_desc" varchar,
+	"description" varchar,
+	"description_en" varchar,
+	"business_desc" varchar,
+	CONSTRAINT "poi_new_poi_pkey" PRIMARY KEY ("id") NOT DEFERRABLE INITIALLY IMMEDIATE
+)
+WITH (OIDS=FALSE);
+ALTER TABLE "public"."poi_new_poi" OWNER TO "venti";
